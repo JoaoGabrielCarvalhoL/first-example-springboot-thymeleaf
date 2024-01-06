@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -98,6 +99,30 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .stream()
                 .filter(Expense::getActive)
                 .map(expenseMapper::toExpenseGetResponse).toList();
+    }
+
+    @Override
+    public List<ExpenseGetResponse> findByDescriptionContaining(String description) {
+        logger.info("Getting expense containing description: {}", description);
+        return this.expenseRepository.findByDescriptionContainingAndIsActive(description, true)
+                .stream().map(expenseMapper::toExpenseGetResponse).toList();
+    }
+
+    @Override
+    public List<ExpenseGetResponse> findByNameContaining(String name) {
+        logger.info("Getting expense containing name: {}", name);
+        return this.expenseRepository.findByNameContainingAndIsActive(name, true)
+                .stream().map(expenseMapper::toExpenseGetResponse).toList();
+    }
+
+    @Override
+    public BigDecimal allExpenses() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (ExpenseGetResponse expense : findAll()) {
+           total = total.add(expense.amount());
+        }
+        return total;
+
     }
 
     @Override

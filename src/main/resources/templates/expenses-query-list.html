@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Manager - List</title>
+</head>
+<body>
+    <h1>Result</h1>
+    <hr>
+
+    <div>
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Paid In</th>
+                <th>Options</th>
+            </thead>
+
+            <tbody>
+                <tr th:each="expense : ${expenses}">
+                    <td th:text="${expense.id}"></td>
+                    <td th:text="${expense.name}"></td>
+                    <td th:text="${expense.description}"></td>
+                    <td th:text="${expense.amount}"></td>
+                    <td th:text="${expense.paidIn}"></td>
+                    <td><a th:href="@{/delete(id=${expense.id})}" onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
+                    <td><a th:href="@{/update-form(id=${expense.id})}">Update</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

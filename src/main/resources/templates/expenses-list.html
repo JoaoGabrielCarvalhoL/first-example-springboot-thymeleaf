@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Manager - List</title>
+
+</head>
+<body>
+    <h1>Expense Manager</h1>
+    <hr>
+
+    <div>
+        <form th:object="${query}" th:action="@{/find-by-description}" method="get">
+            <label>Search by</label>
+            <input type="text" name="name" th:field="*{value}" placeholder="Name Expense">
+            <button type="submit">Search</button>
+        </form>
+
+        <form th:object="${query}" th:action="@{/find-by-description}" method="get">
+            <label>Search by</label>
+            <input type="text" name="name" th:field="*{value}" placeholder="Description Expense">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2>List of Expenses</h2>
+
+    <div>
+        <a th:href="@{/create}">Create Expense</a>
+
+    </div>
+
+    <hr>
+
+    <div>
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Paid In</th>
+                <th>Options</th>
+            </thead>
+
+            <tbody>
+                <tr th:each="expense : ${expenses}">
+                    <td th:text="${expense.id}"></td>
+                    <td th:text="${expense.name}"></td>
+                    <td th:text="${expense.description}"></td>
+                    <td th:text="${expense.amount}"></td>
+                    <td th:text="${expense.paidIn}"></td>
+                    <td><a th:href="@{/delete(id=${expense.id})}" onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
+                    <td><a th:href="@{/update-form(id=${expense.id})}">Update</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h4>All Expenses: USD
+            <span th:text="${total}"></span>
+        </h4>
+    </div>
+</body>
+</html>

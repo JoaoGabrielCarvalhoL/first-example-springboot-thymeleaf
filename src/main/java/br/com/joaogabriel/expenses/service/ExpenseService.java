@@ -7,6 +7,7 @@ import br.com.joaogabriel.expenses.payload.response.ExpenseGetResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,12 @@ public interface ExpenseService {
     Page<ExpenseGetResponse> findAll(Pageable pageable);
 
     List<ExpenseGetResponse> findAll();
+
+    List<ExpenseGetResponse> findByDescriptionContaining(String description);
+
+    List<ExpenseGetResponse> findByNameContaining(String name);
+
+    BigDecimal allExpenses();
 
     void delete(UUID id);
 }

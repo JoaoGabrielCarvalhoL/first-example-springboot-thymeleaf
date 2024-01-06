@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Expense</title>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
+</head>
+<body>
+    <h1>Updating Expense</h1>
+    <hr>
+    <form th:object="${expense}" th:action="@{/update}" method="post">
+        <label>Id</label>
+        <input type="text" name="id" th:field="*{id}" readonly/>
+        <br/>
+
+        <label>Name</label>
+        <input type="text" name="name" th:field="*{name}" required="required"/>
+        <br/>
+
+        <label>Amount</label>
+        <input type="number" name="amount" th:field="*{amount}" required="required"/>
+        <br/>
+
+        <label>Paid In</label>
+        <input type="date" name="paidIn" th:field="*{paidIn}" required="required"/>
+        <br/>
+
+        <label>Description</label>
+        <textarea rows="10" cols="50" name="description" th:field="*{description}" required="required"></textarea>
+        <br/>
+
+        <button type="submit">Update</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+
+
+    <script th:src="@{/js/jquery.js}">
+    <script th:src="@{/js/jquery-ui.js}">
+
+    </script>
+
+</body>
+</html>
+
